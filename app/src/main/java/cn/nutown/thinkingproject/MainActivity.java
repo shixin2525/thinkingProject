@@ -2,11 +2,13 @@ package cn.nutown.thinkingproject;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
-import createType.Builder.Builder;
-import createType.Builder.ConcreteBuilder;
-import createType.Builder.Director;
-import createType.Builder.Product;
+import createType.builder.ConcreteBuilder;
+import createType.builder.Director;
+import createType.builder.Product;
+import createType.prototype.Money;
+import createType.prototype.PrototypeSimple;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        builderSimple();
+        prototype();
     }
 
     /**
@@ -26,4 +28,50 @@ public class MainActivity extends AppCompatActivity {
         product.showMsg();
     }
 
+    /**
+     * 原型模式
+     */
+    private void prototype() {
+        PrototypeSimple mPrototypeSimple = new PrototypeSimple();
+        PrototypeSimple clone = (PrototypeSimple) mPrototypeSimple.clone();
+        Log.e("prototype1", (mPrototypeSimple == clone) + "");//内存地址不一样
+        Log.e("prototype2", (mPrototypeSimple.equals(clone)) + "");//不一样
+        Log.e("prototype3", (mPrototypeSimple.getClass() == clone.getClass()) + "");//类型一致
+        //值完全一样
+        Log.e("prototype4", "mPrototypeSimple:" + mPrototypeSimple.getId() + "," + mPrototypeSimple.getMoney().toString() + "clone:" + clone.getId() + "," + clone.getMoney().toString());
+        //引用类型的内存地址一样
+        Log.e("prototype5", (mPrototypeSimple.getMoney() == clone.getMoney()) + "");
+
+        //验证内存地址是否一样的
+        Money money = mPrototypeSimple.getMoney();
+        mPrototypeSimple.setMoney(money);
+        Log.e("prototype6", "mPrototypeSimple:" + mPrototypeSimple.getId() + "," + mPrototypeSimple.getMoney().toString() + "clone:" + clone.getId() + "," + clone.getMoney().toString());
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

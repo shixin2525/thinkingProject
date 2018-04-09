@@ -1,4 +1,4 @@
-package createType.Builder;
+package createType.builder;
 
 import android.util.Log;
 

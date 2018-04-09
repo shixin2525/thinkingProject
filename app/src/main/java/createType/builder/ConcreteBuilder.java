@@ -1,6 +1,4 @@
-package createType.Builder;
-
-import android.os.Build;
+package createType.builder;
 
 /**
  * Created by LSX on 2018/4/9.
