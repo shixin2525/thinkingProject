@@ -4,6 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.Random;
+
+import algorithm.Sort;
+import createType.factory.abstractFactory.ShoesFactoryAbstract;
+import createType.factory.abstractFactory.ShoesProductAbstract;
+import createType.factory.abstractFactory.ShoesStandardAbstract;
+import createType.factory.abstractFactory.SocksFactoryAbstract;
+import createType.factory.abstractFactory.SocksProductAbstract;
+import createType.factory.abstractFactory.SocksStandardAbstract;
 import createType.factory.methodFactory.FactoryStype;
 import createType.factory.methodFactory.DomesticFactory;
 import createType.factory.simpleFactory.Me;
@@ -15,12 +24,20 @@ import createType.prototype.Money;
 import createType.prototype.PrototypeSimple;
 
 public class MainActivity extends AppCompatActivity {
+    int[] arr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        methodFactory();
+        arr = new int[800];
+        for (int i = 0; i < 800; i++) {
+            int rand = (int) (Math.random() * 1000 + 1);
+            arr[i] = rand;
+        }
+        //Sort.bubble(arr);
+        //Sort.choice(arr);
+        //Sort.insert(arr);
     }
 
     /**
@@ -61,14 +78,27 @@ public class MainActivity extends AppCompatActivity {
         boatSocks.make();
         silkStockings.make();
     }
+
     /**
      * 方法工厂
      */
     private void methodFactory() {
-        FactoryStype mBoatSocksFactory=new DomesticFactory();//丝袜
+        FactoryStype mBoatSocksFactory = new DomesticFactory();//丝袜
         mBoatSocksFactory.makeSocks();
     }
 
+    /**
+     * 抽象工厂
+     */
+    private void abstractFactory() {
+
+        ShoesStandardAbstract shoesFactoryAbstract = new ShoesFactoryAbstract();
+        ShoesProductAbstract shoesProductAbstract = shoesFactoryAbstract.makeSocks();
+
+        SocksStandardAbstract socksFactoryAbstract = new SocksFactoryAbstract();
+        SocksProductAbstract socksProductAbstract = socksFactoryAbstract.makeSocks();
+
+    }
 }
 
 

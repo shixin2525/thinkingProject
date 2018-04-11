@@ -4,9 +4,9 @@ import android.util.Log;
 
 /**
  * Created by shixin-pc on 2018/4/10.
- * 船袜产品
+ * 袜子产品
  */
-public class BoatSocks implements Socks {
+public class SocksProductAbstract implements SocksAbstract {
     @Override
     public void make() {
         Log.e("tag","生产100双船袜");
