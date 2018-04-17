@@ -29,4 +29,5 @@ public class Product {
     public void showMsg() {
         Log.e("tag", "你选择的车型是:" + name + "价格:" + price);
     }
+
 }
