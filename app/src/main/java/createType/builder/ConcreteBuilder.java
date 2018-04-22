@@ -6,7 +6,7 @@ package createType.builder;
  */
 
 public class ConcreteBuilder implements Builder {
-    Product mProduct = new Product();
+    private Product mProduct = new Product();
 
     //如何构建价格
     @Override
