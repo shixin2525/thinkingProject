@@ -29,6 +29,10 @@ import strucType.adapter.English;
 import strucType.adapter.classAdapter.ClassAdapter;
 import strucType.adapter.defaultAdapter.DefaultAdapter;
 import strucType.adapter.defaultAdapter.DefaultEnglish;
+import strucType.bridge.Brand;
+import strucType.bridge.Computer;
+import strucType.bridge.Laptop;
+import strucType.bridge.Lenovo;
 import strucType.decorator.AbstractPerson;
 import strucType.decorator.Clothes;
 import strucType.decorator.DecoratorMe;
@@ -59,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         // composite();
         Sort.insert(arr);
         flyweight();
+        bridge();
     }
 
     /**
@@ -206,6 +211,16 @@ public class MainActivity extends AppCompatActivity {
         shape6.draw();
 
         Log.e("tag", "一共绘制了" + FlyweightFactory.getSum() + "种颜色的圆形");
+
+    }
+
+    /**
+     * 桥接模式
+     */
+    private void bridge() {
+        Brand b = new Lenovo();
+        Computer c = new Laptop(b);
+        c.sale();
 
     }
 
