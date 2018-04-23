@@ -22,9 +22,18 @@ import createType.builder.Product;
 import createType.factory.simpleFactory.Socks;
 import createType.prototype.Money;
 import createType.prototype.PrototypeSimple;
+import strucType.Composite.Company;
+import strucType.Composite.ConcreteCompany;
+import strucType.Composite.HRDepartment;
+import strucType.Composite.StaffDepartment;
+import strucType.decorator.AbstractPerson;
+import strucType.decorator.Clothes;
+import strucType.decorator.DecoratorMe;
+import strucType.decorator.Hats;
 
 public class MainActivity extends AppCompatActivity {
     int[] arr;
+    int[] arrB = {51, 54, 56, 85, 75, 31, 21, 02, 12, 54, 10, 13, 16, 18, 95, 8, 47, 56, 333, 87, 546, 312};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         //Sort.bubble(arr);
         //Sort.choice(arr);
         //Sort.insert(arr);
+        // Sort.insert(arrB);
+        //Sort.insert(arrB);
+       // composite();
+        decorator();
     }
 
     /**
@@ -97,8 +110,47 @@ public class MainActivity extends AppCompatActivity {
 
         SocksStandardAbstract socksFactoryAbstract = new SocksFactoryAbstract();
         SocksProductAbstract socksProductAbstract = socksFactoryAbstract.makeSocks();
+    }
+
+    /**
+     * 装饰模式
+     */
+    private void decorator() {
+        AbstractPerson me = new DecoratorMe();
+        AbstractPerson clothes = new Clothes(me);
+        AbstractPerson hats = new Hats(me);
+        hats.show();
+    }
+
+    /**
+     * 组合模式
+     */
+    private void composite() {
+        Company company = new ConcreteCompany("成都纽糖总公司");
+        company.add(new HRDepartment("总公司人事部门"));
+        company.add(new StaffDepartment("总公司员工部门"));
+
+        Company company1 = new ConcreteCompany("华北纽糖分公司");
+        company1.add(new HRDepartment("华北纽糖分公司人事部门"));
+        company1.add(new StaffDepartment("华北纽糖分公司员工部门"));
+        company.add(company1);
+
+        Company company2 = new ConcreteCompany("华南纽糖科技");
+        company2.add(new HRDepartment("华南纽糖科技人事部门"));
+        company2.add(new StaffDepartment("华南纽糖科技员工部门"));
+        company.add(company2);
+
+        Company company3 = new ConcreteCompany("西北纽糖科技");
+        company3.add(new HRDepartment("西北纽糖科技人事部门"));
+        company3.add(new StaffDepartment("西北纽糖科技员工部门"));
+        company.add(company3);
+
+        company.show();
+        company.responsibility();
 
     }
+
+
 }
 
 

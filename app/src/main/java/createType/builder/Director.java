@@ -6,7 +6,7 @@ package createType.builder;
  */
 
 public class Director {
-    Builder mBuiler;
+   private Builder mBuiler;
 
     public Director(Builder mBuiler) {
         this.mBuiler = mBuiler;

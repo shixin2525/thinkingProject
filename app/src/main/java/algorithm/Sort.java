@@ -26,8 +26,8 @@ public class Sort {
             }
         }
         long endTime = System.currentTimeMillis();
-        long time = endTime-startTime;
-        Log.e("tag", "bubble:" + Arrays.toString(arr) + ",time:" + time+"ms");
+        long time = endTime - startTime;
+        Log.e("tag", "bubble:" + Arrays.toString(arr) + ",time:" + time + "ms");
     }
 
     /**
@@ -52,8 +52,8 @@ public class Sort {
             }
         }
         long endTime = System.currentTimeMillis();
-        long time = endTime-startTime;
-        Log.e("tag", "choice:" + Arrays.toString(arr) + ",time:" + time+"ms");
+        long time = endTime - startTime;
+        Log.e("tag", "choice:" + Arrays.toString(arr) + ",time:" + time + "ms");
     }
 
     /**
@@ -61,18 +61,18 @@ public class Sort {
      * 从左边开始，每下一个数和左边的所有数进行比较,就好比摸牌，摸一张马上和前面所有的数字比较并选择位置,再摸一张又重复操作
      */
     public static void insert(int[] arr) {
-        long startTime = System.currentTimeMillis();
-        for (int i = 1; i < arr.length; i++) {//i=1表示不和自己比较
-            for (int j = i; j > 0 && arr[j] < arr[j - 1]; j--) {//j=i表示从当前这个数的左边开始依次比较
-                int tag = arr[j - 1];
-                arr[j - 1] = arr[j];
-                arr[j] = tag;
+        int temp, i, j;
+        for (i = 1; i < arr.length; i++) {
+            temp = arr[i];
+            for (j = i; j > 0 && arr[j - 1] > temp; j--) {
+                arr[j] = arr[j - 1];
             }
+            arr[j] = temp;
         }
-        long endTime = System.currentTimeMillis();
-        long time = endTime-startTime;
-        Log.e("tag", "insert:" + Arrays.toString(arr) + ",time:" + time+"ms");
+        Log.e("tag", "choice:" + Arrays.toString(arr));
     }
+
+
 }
 
 
