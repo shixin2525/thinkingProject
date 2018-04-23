@@ -10,6 +10,8 @@ public class DecoratorMe implements AbstractPerson {
 
     @Override
     public void show() {
-      Log.e("tag","我");
+        Log.e("tag", "我");
     }
+
+
 }

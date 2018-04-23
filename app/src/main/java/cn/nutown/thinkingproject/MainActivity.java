@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import java.util.Random;
-
 import algorithm.Sort;
 import createType.factory.abstractFactory.ShoesFactoryAbstract;
 import createType.factory.abstractFactory.ShoesProductAbstract;
@@ -26,10 +24,19 @@ import strucType.Composite.Company;
 import strucType.Composite.ConcreteCompany;
 import strucType.Composite.HRDepartment;
 import strucType.Composite.StaffDepartment;
+import strucType.adapter.Adapter;
+import strucType.adapter.English;
+import strucType.adapter.classAdapter.ClassAdapter;
+import strucType.adapter.defaultAdapter.DefaultAdapter;
+import strucType.adapter.defaultAdapter.DefaultEnglish;
 import strucType.decorator.AbstractPerson;
 import strucType.decorator.Clothes;
 import strucType.decorator.DecoratorMe;
 import strucType.decorator.Hats;
+import strucType.facade.Faced;
+import strucType.flyweight.FlyweightFactory;
+import strucType.flyweight.Shape;
+
 
 public class MainActivity extends AppCompatActivity {
     int[] arr;
@@ -49,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
         //Sort.insert(arr);
         // Sort.insert(arrB);
         //Sort.insert(arrB);
-       // composite();
-        decorator();
+        // composite();
+        Sort.insert(arr);
+        flyweight();
     }
 
     /**
@@ -150,6 +158,56 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * 适配器模式
+     */
+    private void adapter() {
+        //ObjectAdapter
+        Adapter adapter = new Adapter(new English());
+        adapter.speak("你好!");
+        //ClassAdapter
+        ClassAdapter ca = new ClassAdapter();
+        ca.speakChinese("你好！");
+        //DefaultAdapter
+        DefaultAdapter da = new DefaultAdapter(new DefaultEnglish());
+        da.speakMandarin("你好！");
+    }
+
+    /**
+     * 外观模式
+     */
+    private void facade() {
+        Faced faced = new Faced();
+        faced.combinationA();
+        faced.combinationB();
+    }
+
+    /**
+     * 享元模式
+     */
+    private void flyweight() {
+        Shape shape1 = FlyweightFactory.getShape("红色");
+        shape1.draw();
+
+        Shape shape2 = FlyweightFactory.getShape("灰色");
+        shape2.draw();
+
+        Shape shape3 = FlyweightFactory.getShape("绿色");
+        shape3.draw();
+
+        Shape shape4 = FlyweightFactory.getShape("红色");
+        shape4.draw();
+
+        Shape shape5 = FlyweightFactory.getShape("灰色");
+        shape5.draw();
+
+        Shape shape6 = FlyweightFactory.getShape("灰色");
+        shape6.draw();
+
+        Log.e("tag", "一共绘制了" + FlyweightFactory.getSum() + "种颜色的圆形");
+
+    }
 
 }
 

@@ -61,15 +61,15 @@ public class Sort {
      * 从左边开始，每下一个数和左边的所有数进行比较,就好比摸牌，摸一张马上和前面所有的数字比较并选择位置,再摸一张又重复操作
      */
     public static void insert(int[] arr) {
-        int temp, i, j;
-        for (i = 1; i < arr.length; i++) {
-            temp = arr[i];
-            for (j = i; j > 0 && arr[j - 1] > temp; j--) {
-                arr[j] = arr[j - 1];
+        int i,j;
+        for ( i = 1; i < arr.length; i++) {
+            int tab = arr[i];
+            for (j = i; j > 0 && arr[j - 1] > tab; j--) {
+                arr[j]=arr[j-1];
             }
-            arr[j] = temp;
+            arr[j]=tab;
         }
-        Log.e("tag", "choice:" + Arrays.toString(arr));
+        Log.e("tag",Arrays.toString(arr));
     }
 
 
