@@ -40,6 +40,8 @@ import strucType.decorator.Hats;
 import strucType.facade.Faced;
 import strucType.flyweight.FlyweightFactory;
 import strucType.flyweight.Shape;
+import strucType.proxy.Give;
+import strucType.proxy.Proxy;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -224,6 +226,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+    * 代理模式
+    * **/
+    private void proxy() {
+        Give give = new Proxy();
+        give.flower();
+
+    }
 }
 
 
