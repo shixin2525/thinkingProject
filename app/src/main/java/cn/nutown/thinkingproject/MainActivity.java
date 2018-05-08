@@ -4,7 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import algorithm.Sort;
+import createType.builder.ConcreteBuilder;
+import createType.builder.DirectorBuilder;
+import createType.builder.GameMapBuilder;
+import createType.builder.MapBuilder;
 import createType.factory.abstractFactory.ShoesFactoryAbstract;
 import createType.factory.abstractFactory.ShoesProductAbstract;
 import createType.factory.abstractFactory.ShoesStandardAbstract;
@@ -14,12 +17,9 @@ import createType.factory.abstractFactory.SocksStandardAbstract;
 import createType.factory.methodFactory.FactoryStype;
 import createType.factory.methodFactory.DomesticFactory;
 import createType.factory.simpleFactory.Me;
-import createType.builder.ConcreteBuilder;
-import createType.builder.Director;
-import createType.builder.Product;
 import createType.factory.simpleFactory.Socks;
-import createType.prototype.Money;
-import createType.prototype.PrototypeSimple;
+import createType.prototype.Hero;
+import createType.singleton.SingletonThread;
 import strucType.Composite.Company;
 import strucType.Composite.ConcreteCompany;
 import strucType.Composite.HRDepartment;
@@ -63,38 +63,40 @@ public class MainActivity extends AppCompatActivity {
         // Sort.insert(arrB);
         //Sort.insert(arrB);
         // composite();
-        Sort.insert(arr);
-        flyweight();
-        bridge();
+//Sort.insert(arr);
+        prototype();
+    }
+
+    /*
+    * 单利模式
+    * **/
+    private void singleton(String name) {
+        SingletonThread.getInstance().checkHero(name);
     }
 
     /**
      * 建造者
      */
     private void builderSimple() {
-        Director director = new Director(new ConcreteBuilder());
-        Product product = director.createBuilder("雪铁龙", 384560.0);
-        product.showMsg();
+        DirectorBuilder director = new DirectorBuilder(new ConcreteBuilder());
+        director.createBuilder();
     }
 
     /**
      * 原型模式
      */
     private void prototype() {
-        PrototypeSimple mPrototypeSimple = new PrototypeSimple();
-        PrototypeSimple clone = (PrototypeSimple) mPrototypeSimple.clone();
-        Log.e("prototype1", (mPrototypeSimple == clone) + "");//内存地址不一样
-        Log.e("prototype2", (mPrototypeSimple.equals(clone)) + "");//不一样
-        Log.e("prototype3", (mPrototypeSimple.getClass() == clone.getClass()) + "");//类型一致
-        //值完全一样
-        Log.e("prototype4", "mPrototypeSimple:" + mPrototypeSimple.getId() + "," + mPrototypeSimple.getMoney().toString() + "clone:" + clone.getId() + "," + clone.getMoney().toString());
-        //引用类型的内存地址一样
-        Log.e("prototype5", (mPrototypeSimple.getMoney() == clone.getMoney()) + "");
-
-        //验证内存地址是否一样的
-        Money money = mPrototypeSimple.getMoney();
-        mPrototypeSimple.setMoney(money);
-        Log.e("prototype6", "mPrototypeSimple:" + mPrototypeSimple.getId() + "," + mPrototypeSimple.getMoney().toString() + "clone:" + clone.getId() + "," + clone.getMoney().toString());
+        Hero hero = new Hero("盖伦");
+        Hero cloneHero = (Hero) hero.clone();
+        //判断类型，内存地址，equals 依次为 true,false,false
+        Log.e("prototype1", (hero.getClass() == cloneHero.getClass()) + "," + (hero == cloneHero) + "," + (hero.equals(cloneHero)));
+        //打印两个类中的值
+        Log.e("prototype2", "hero:" + hero.getmSkill().toString() + ",tag:" + hero.getTag() + ",clone:" + cloneHero.getmSkill().toString() + ",tag:" + cloneHero.getTag());
+        //更改原型类中的值
+        hero.getmSkill().setR("大招CD中...");
+        hero.setTag(20);
+        //再打印两个类中的值
+        Log.e("prototype3", "hero:" + hero.getmSkill().toString() + ",tag:" + hero.getTag() + ",clone:" + cloneHero.getmSkill().toString() + ",tag:" + cloneHero.getTag());
     }
 
     /**

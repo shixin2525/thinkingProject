@@ -1,28 +1,18 @@
 package createType.builder;
 
 /**
- * Created by LSX on 2018/4/9.
- * 具体的建造工具类
+ * Created by LSX on 2018/5/8.
  */
 
-public class ConcreteBuilder implements Builder {
-    private Product mProduct = new Product();
-
-    //如何构建价格
+public class ConcreteBuilder implements  GameMapBuilder {
+    private MapBuilder mMapBuilder=new MapBuilder();
     @Override
-    public void setPrice(double price) {
-        mProduct.setPrice(price);
+    public void sapperStyle() {
+        mMapBuilder.setSapperStyle("中国风的小兵");
     }
 
-    //如何构建名字
     @Override
-    public void setName(String name) {
-        mProduct.setName(name);
-    }
-
-    //返回产品实例
-    @Override
-    public Product build() {
-        return mProduct;
+    public void mapColor() {
+        mMapBuilder.setMapColor("红色地图");
     }
 }

@@ -18,4 +18,8 @@ public class SingletonTwo {
         }
         return mMySingleton;
     }
+
+    public String checkHero(String name) {
+        return "检测英雄ID是否符合规范";
+    }
 }

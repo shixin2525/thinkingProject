@@ -15,6 +15,10 @@ public class SingletonThread {
         return MySingletonHolder.mMySingleton;
     }
 
+    public String checkHero(String name){
+        return  "检测英雄ID是否符合规范";
+    }
+
     private static class MySingletonHolder {
         private static SingletonThread mMySingleton = new SingletonThread();
     }
