@@ -6,20 +6,21 @@ import android.util.Log;
 
 import createType.builder.ConcreteBuilder;
 import createType.builder.DirectorBuilder;
-import createType.builder.GameMapBuilder;
-import createType.builder.MapBuilder;
+import createType.factory.IFactory;
+import createType.factory.IUser;
+import createType.factory.SqlServerFactory;
+import createType.factory.SqlserverUser;
+import createType.factory.User;
 import createType.factory.abstractFactory.ShoesFactoryAbstract;
 import createType.factory.abstractFactory.ShoesProductAbstract;
 import createType.factory.abstractFactory.ShoesStandardAbstract;
 import createType.factory.abstractFactory.SocksFactoryAbstract;
 import createType.factory.abstractFactory.SocksProductAbstract;
 import createType.factory.abstractFactory.SocksStandardAbstract;
-import createType.factory.methodFactory.FactoryStype;
-import createType.factory.methodFactory.DomesticFactory;
 import createType.factory.simpleFactory.Me;
-import createType.factory.simpleFactory.Socks;
 import createType.prototype.Hero;
 import createType.singleton.SingletonThread;
+
 import strucType.Composite.Company;
 import strucType.Composite.ConcreteCompany;
 import strucType.Composite.HRDepartment;
@@ -102,26 +103,30 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 简单工厂
      */
-    private void simpleFactory() {
-        Socks boatSocks = Me.makeSocks(0);//丝袜
-        Socks silkStockings = Me.makeSocks(1);//船袜
-        boatSocks.make();
-        silkStockings.make();
+    private void simpleFactory(int option) {
+       Me.makeSocks(option);
     }
 
     /**
      * 方法工厂
      */
     private void methodFactory() {
-        FactoryStype mBoatSocksFactory = new DomesticFactory();//丝袜
-        mBoatSocksFactory.makeSocks();
+        //基本的数据访问程序
+       User user=new User(1,"盖伦");
+//        SqlserverUser su=new SqlserverUser();
+//        su.insert(user);
+//        su.getUser();
+        //方法工厂
+    IFactory ifactory=  new SqlServerFactory();
+        IUser iuser = ifactory.createUser();
+        iuser.insert(user);
+        iuser.getUser();
     }
 
     /**
      * 抽象工厂
      */
     private void abstractFactory() {
-
         ShoesStandardAbstract shoesFactoryAbstract = new ShoesFactoryAbstract();
         ShoesProductAbstract shoesProductAbstract = shoesFactoryAbstract.makeSocks();
 

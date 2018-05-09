@@ -5,20 +5,20 @@ package createType.factory.simpleFactory;
  * 工厂
  */
 public class Me {
-    private static BoatSocks mBoatSocks = new BoatSocks();
-    private static SilkStockings mSilkStockings = new SilkStockings();
+    private static FirstPlay mFirstPlay = new FirstPlay();
+    private static SuperiorPlayer mSuperiorPlayer = new SuperiorPlayer();
 
     /**
-     * @param style 0=丝袜 1=船袜
+     * @param option  0=第一次玩 1=大神
      */
-    public static Socks makeSocks(int style) {
-        switch (style) {
+    public static Level makeSocks(int option) {
+        switch (option) {
             case 0:
-                mBoatSocks.make();
-                return mBoatSocks;
+                mFirstPlay.userLevel();
+                return mFirstPlay;
             case 1:
-                mSilkStockings.make();
-                return mSilkStockings;
+                mSuperiorPlayer.userLevel();
+                return mSuperiorPlayer;
         }
         return null;
     }
