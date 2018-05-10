@@ -6,17 +6,15 @@ import android.util.Log;
 
 import createType.builder.ConcreteBuilder;
 import createType.builder.DirectorBuilder;
+import createType.factory.AccessFactory;
+import createType.factory.DataAccess;
+import createType.factory.Department;
+import createType.factory.IDepartment;
 import createType.factory.IFactory;
 import createType.factory.IUser;
 import createType.factory.SqlServerFactory;
 import createType.factory.SqlserverUser;
 import createType.factory.User;
-import createType.factory.abstractFactory.ShoesFactoryAbstract;
-import createType.factory.abstractFactory.ShoesProductAbstract;
-import createType.factory.abstractFactory.ShoesStandardAbstract;
-import createType.factory.abstractFactory.SocksFactoryAbstract;
-import createType.factory.abstractFactory.SocksProductAbstract;
-import createType.factory.abstractFactory.SocksStandardAbstract;
 import createType.factory.simpleFactory.Me;
 import createType.prototype.Hero;
 import createType.singleton.SingletonThread;
@@ -104,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
      * 简单工厂
      */
     private void simpleFactory(int option) {
-       Me.makeSocks(option);
+        Me.makeSocks(option);
     }
 
     /**
@@ -112,12 +110,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private void methodFactory() {
         //基本的数据访问程序
-       User user=new User(1,"盖伦");
+        User user = new User(1, "盖伦");
 //        SqlserverUser su=new SqlserverUser();
 //        su.insert(user);
 //        su.getUser();
         //方法工厂
-    IFactory ifactory=  new SqlServerFactory();
+        IFactory ifactory = new SqlServerFactory();
         IUser iuser = ifactory.createUser();
         iuser.insert(user);
         iuser.getUser();
@@ -127,11 +125,28 @@ public class MainActivity extends AppCompatActivity {
      * 抽象工厂
      */
     private void abstractFactory() {
-        ShoesStandardAbstract shoesFactoryAbstract = new ShoesFactoryAbstract();
-        ShoesProductAbstract shoesProductAbstract = shoesFactoryAbstract.makeSocks();
+        User user = new User(2, "布隆");
+        Department department = new Department(3, "妖姬");
 
-        SocksStandardAbstract socksFactoryAbstract = new SocksFactoryAbstract();
-        SocksProductAbstract socksProductAbstract = socksFactoryAbstract.makeSocks();
+        IFactory acessfactory = new AccessFactory();
+
+        IUser iuser = acessfactory.createUser();
+        iuser.insert(user);
+        iuser.getUser();
+
+
+        IDepartment idepartment = acessfactory.createDepartment();
+        idepartment.insert(department);
+        idepartment.getUser();
+
+        IUser simpleIuser = DataAccess.createUser("SqlserverUser");
+        simpleIuser.insert(user);
+        simpleIuser.getUser();
+
+
+        IDepartment sqlserverDepartment = DataAccess.createDepartment("SqlserverDepartment");
+        sqlserverDepartment.insert(department);
+        sqlserverDepartment.getUser();
     }
 
     /**

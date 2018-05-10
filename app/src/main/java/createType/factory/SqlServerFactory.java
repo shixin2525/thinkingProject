@@ -9,4 +9,11 @@ public class SqlServerFactory implements  IFactory {
     public IUser createUser() {
         return new SqlserverUser();
     }
+
+    @Override
+    public IDepartment createDepartment() {
+        return new SqlserverDepartment();
+    }
+
+
 }
