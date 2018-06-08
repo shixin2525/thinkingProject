@@ -4,6 +4,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import behavior.observer.AndroidDev;
+import behavior.observer.Bee;
+import behavior.observer.CoderPig;
+import behavior.observer.Flower;
+import behavior.observer.Insect;
+import behavior.observer.Plant;
+import behavior.strategy.Caculator;
 import createType.builder.ConcreteBuilder;
 import createType.builder.DirectorBuilder;
 import createType.factory.AccessFactory;
@@ -254,8 +261,35 @@ public class MainActivity extends AppCompatActivity {
     private void proxy() {
         Give give = new Proxy();
         give.flower();
-
     }
+   /*
+   * 策略模式
+   * **/
+   private void strategy(){
+       Caculator.strategyCompute("+",3,2);
+   }
+
+   /*
+   * 观察者模式
+   * **/
+   private void observer(){
+       //创建被更观察者
+       Plant plant=new Flower();
+       //创建观察者
+       Insect bee1=new Bee();
+       Insect bee2=new Bee();
+       plant.registerInsect(bee1);
+       plant.registerInsect(bee2);
+       plant.notifyInsect(true);
+
+       /*
+       * java的支持的观察者方式
+       * **/
+       CoderPig cp=new CoderPig();
+       AndroidDev ad=new AndroidDev();
+       cp.update("更新了!");
+       cp.deleteObserver(ad);
+   }
 }
 
 
