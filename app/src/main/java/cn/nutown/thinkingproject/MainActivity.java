@@ -4,13 +4,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import behavior.chain.Brother;
+import behavior.chain.Parent;
+import behavior.command.Command;
+import behavior.command.Invoker;
+import behavior.command.PauseCommand;
+import behavior.command.PlayCommand;
+import behavior.command.SetListCommand;
+import behavior.command.Story;
+import behavior.command.StoryPlayer;
+import behavior.iterator.Iterator;
+import behavior.iterator.MyStoryList;
+import behavior.iterator.Sang;
+import behavior.mediator.HouseMediator;
+import behavior.mediator.Landlord;
+import behavior.mediator.Tenant;
 import behavior.observer.AndroidDev;
 import behavior.observer.Bee;
 import behavior.observer.CoderPig;
 import behavior.observer.Flower;
 import behavior.observer.Insect;
 import behavior.observer.Plant;
+import behavior.state.AfternoonState;
+import behavior.state.Context;
+import behavior.state.MorningState;
 import behavior.strategy.Caculator;
+import behavior.template.AbstractClass;
+import behavior.template.ConcreteClassA;
+import behavior.template.ConcreteClassB;
+import behavior.visitor.Dancing;
+import behavior.visitor.FemalePlayer;
+import behavior.visitor.GameRoom;
+import behavior.visitor.Machine;
+import behavior.visitor.MalePlayer;
+import behavior.visitor.Player;
+import behavior.visitor.Shooting;
 import createType.builder.ConcreteBuilder;
 import createType.builder.DirectorBuilder;
 import createType.factory.AccessFactory;
@@ -20,7 +51,6 @@ import createType.factory.IDepartment;
 import createType.factory.IFactory;
 import createType.factory.IUser;
 import createType.factory.SqlServerFactory;
-import createType.factory.SqlserverUser;
 import createType.factory.User;
 import createType.factory.simpleFactory.Me;
 import createType.prototype.Hero;
@@ -262,34 +292,155 @@ public class MainActivity extends AppCompatActivity {
         Give give = new Proxy();
         give.flower();
     }
-   /*
-   * 策略模式
-   * **/
-   private void strategy(){
-       Caculator.strategyCompute("+",3,2);
-   }
 
-   /*
-   * 观察者模式
-   * **/
-   private void observer(){
-       //创建被更观察者
-       Plant plant=new Flower();
-       //创建观察者
-       Insect bee1=new Bee();
-       Insect bee2=new Bee();
-       plant.registerInsect(bee1);
-       plant.registerInsect(bee2);
-       plant.notifyInsect(true);
+    /*
+    * 策略模式
+    * **/
+    private void strategy() {
+        Caculator.strategyCompute("+", 3, 2);
+    }
+
+    /*
+    * 观察者模式
+    * **/
+    private void observer() {
+        //创建被更观察者
+        Plant plant = new Flower();
+        //创建观察者
+        Insect bee1 = new Bee();
+        Insect bee2 = new Bee();
+        plant.registerInsect(bee1);
+        plant.registerInsect(bee2);
+        plant.notifyInsect(true);
 
        /*
        * java的支持的观察者方式
        * **/
-       CoderPig cp=new CoderPig();
-       AndroidDev ad=new AndroidDev();
-       cp.update("更新了!");
-       cp.deleteObserver(ad);
-   }
+        CoderPig cp = new CoderPig();
+        AndroidDev ad = new AndroidDev();
+        cp.update("更新了!");
+        cp.deleteObserver(ad);
+    }
+
+    /*
+    * 迭代器
+    * **/
+    private void iterator() {
+        List<Sang> list = new ArrayList<>();
+        list.add(new Sang("难忘今宵"));
+        list.add(new Sang("女人花"));
+        list.add(new Sang("忘情水"));
+        list.add(new Sang("王婆卖豆腐"));
+
+        MyStoryList msl = new MyStoryList(list);
+        Iterator iterator = msl.getIterator();
+
+        while (iterator.hashNext()) {
+            Log.e("tag", iterator.currentItem().toString());
+            iterator.next();
+        }
+    }
+
+    /*
+    * 命令模式
+    * **/
+    private void command() {
+        //创建列表
+        List<Story> mList = new ArrayList<>();
+        mList.add(new Story("难忘今宵", "www.nanwangjinxiao.com"));
+        mList.add(new Story("覆水难收", "www.fushuinanshou.com"));
+        mList.add(new Story("传说", "www.chuanshuo.com"));
+
+        //实例化命令执行类
+        StoryPlayer mStoryPlayer = new StoryPlayer();
+
+        //实例化命令对象
+        SetListCommand setListC = new SetListCommand(mStoryPlayer);
+        Command palyC = new PlayCommand(mStoryPlayer);
+        Command pauseC = new PauseCommand(mStoryPlayer);
+
+        //实例化请求者
+        Invoker invoker = new Invoker();
+        invoker.setSetList(setListC);
+        invoker.setPlayList(mList);
+        invoker.setPlayC(palyC);
+        invoker.setPauseC(pauseC);
+    }
+
+    /*
+    * 备忘录模式
+    * **/
+    private void memento() {
+        behavior.memento.Character character = new behavior.memento.Character(2000, 1000, 0);
+        character.setHp(500);
+        character.setMp(200);
+        character.setMoney(3000);
+        character.save();
+    }
+
+    /*
+    * 中介者模式
+    * **/
+    private void mediator() {
+        //实例化中介者
+        HouseMediator houseMediator = new HouseMediator();
+        //实例化同事对象，传入中介者
+        Landlord landlord = new Landlord("包租婆", houseMediator);
+        Tenant tenant = new Tenant("小青年", houseMediator);
+        //为中介者传入同事对象
+        houseMediator.setmLandlord(landlord);
+        houseMediator.setmTenant(tenant);
+        //调用
+        landlord.contact("单间500");
+    }
+
+    /*
+    * 访问者模式
+    * **/
+    private void visitor() {
+        GameRoom gr = new GameRoom();
+        gr.add(new Shooting());
+        gr.add(new Dancing());
+
+        Player mp=new MalePlayer();
+        Player fp=new FemalePlayer();
+
+        gr.action(mp);
+        gr.action(fp);
+    }
+
+    /*
+    * 责任链模式
+    * **/
+    private void chain() {
+        Brother brother = new Brother();
+        Parent parent = new Parent();
+
+        brother.setNextHandler(parent);//指定下家
+
+        brother.handlerRequest("要钱", 200);
+    }
+
+    /*
+    * 状态模式
+    * **/
+    private void state() {
+        MorningState ms = new MorningState();
+        AfternoonState as = new AfternoonState();
+        Context context = new Context();
+        context.setState(ms);
+        context.setState(as);
+    }
+
+    /*
+    * 摸板方法
+    * **/
+    private void template() {
+        AbstractClass acA = new ConcreteClassA();
+        acA.templateMethod();
+        AbstractClass acB = new ConcreteClassB();
+        acB.templateMethod();
+    }
 }
 
 
