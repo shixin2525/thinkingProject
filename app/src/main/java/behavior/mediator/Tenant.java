@@ -4,6 +4,7 @@ import android.util.Log;
 
 /**
  * Created by shixin-pc on 2018/6/9.
+ * 房客
  */
 
 public class Tenant extends  People{
@@ -16,6 +17,6 @@ public class Tenant extends  People{
     }
 
     public void getMessage(String msg) {
-        Log.e("tag", "房东" + name + "," + msg);
+        Log.e("tag", "房客" + name + "," + msg);
     }
 }

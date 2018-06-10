@@ -16,6 +16,8 @@ import behavior.command.PlayCommand;
 import behavior.command.SetListCommand;
 import behavior.command.Story;
 import behavior.command.StoryPlayer;
+import behavior.interpreter.NonterminalExpression;
+import behavior.interpreter.TerminalExpression;
 import behavior.iterator.Iterator;
 import behavior.iterator.MyStoryList;
 import behavior.iterator.Sang;
@@ -395,6 +397,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
+    * 解释器模式
+    * **/
+    private void interpreter() {
+        behavior.interpreter.Context context =new behavior.interpreter.Context("呵呵","哈哈");
+        TerminalExpression te=new TerminalExpression();
+        NonterminalExpression ne=new NonterminalExpression();
+        te.Interpret(context);
+        ne.Interpret(context);
+    }
+
+    /*
     * 访问者模式
     * **/
     private void visitor() {
@@ -402,8 +415,8 @@ public class MainActivity extends AppCompatActivity {
         gr.add(new Shooting());
         gr.add(new Dancing());
 
-        Player mp=new MalePlayer();
-        Player fp=new FemalePlayer();
+        Player mp = new MalePlayer();
+        Player fp = new FemalePlayer();
 
         gr.action(mp);
         gr.action(fp);

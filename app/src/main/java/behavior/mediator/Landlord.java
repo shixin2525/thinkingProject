@@ -4,7 +4,7 @@ import android.util.Log;
 
 /**
  * Created by shixin-pc on 2018/6/9.
- * 具体同事类
+ * 房东
  */
 
 public class Landlord extends People {

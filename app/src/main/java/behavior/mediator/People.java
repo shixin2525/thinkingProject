@@ -2,7 +2,7 @@ package behavior.mediator;
 
 /**
  * Created by shixin-pc on 2018/6/9.
- * 抽象同事类
+ * 抽象客户类
  */
 
 public abstract class People {
